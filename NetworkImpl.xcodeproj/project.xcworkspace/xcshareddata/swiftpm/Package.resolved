@@ -1,0 +1,113 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "78424be314842833c04bc3bef5b72e85fff99204",
+        "version" : "5.6.4"
+      }
+    },
+    {
+      "identity" : "base-core-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.edupiakid.vn/huytd/base-core-ios",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c1141bf3e55de9e8a25bb8616cfeaf32b3738215"
+      }
+    },
+    {
+      "identity" : "iqkeyboardmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hackiftekhar/IQKeyboardManager.git",
+      "state" : {
+        "revision" : "0ea3febb36cfcec2afb5841fd8809a9c0fa545b3",
+        "version" : "6.5.11"
+      }
+    },
+    {
+      "identity" : "mspeekcollectionviewdelegateimplementation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "5bc891a2ff11be914fee9b58de7bfeabf0a6fff0"
+      }
+    },
+    {
+      "identity" : "objectmapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tristanhimmelman/ObjectMapper.git",
+      "state" : {
+        "revision" : "0b96a734de3ea1c87374ae677064f86adb0716ec",
+        "version" : "4.2.0"
+      }
+    },
+    {
+      "identity" : "ohhttpstubs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AliSoftware/OHHTTPStubs.git",
+      "state" : {
+        "revision" : "12f19662426d0434d6c330c6974d53e2eb10ecd9",
+        "version" : "9.1.0"
+      }
+    },
+    {
+      "identity" : "rxalamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxAlamofire.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b1bc0c45f743fe87a2a741430ac589de9736ab66"
+      }
+    },
+    {
+      "identity" : "rxdatasources",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxDataSources.git",
+      "state" : {
+        "revision" : "90c29b48b628479097fe775ed1966d75ac374518",
+        "version" : "5.0.2"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "b4307ba0b6425c0ba4178e138799946c3da594f8",
+        "version" : "6.5.0"
+      }
+    },
+    {
+      "identity" : "swiftmessages",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftKickMobile/SwiftMessages.git",
+      "state" : {
+        "revision" : "b29dd21090b708aa0ae9ecbaf6e2d0487028dc3f",
+        "version" : "9.0.6"
+      }
+    },
+    {
+      "identity" : "uiscrollview-infinitescroll",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pronebird/UIScrollView-InfiniteScroll.git",
+      "state" : {
+        "revision" : "ff0c2b0d0d83961f36df3dfb3e6ff6929ff46dd3",
+        "version" : "1.3.0"
+      }
+    },
+    {
+      "identity" : "xcoordinator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/quickbirdstudios/XCoordinator.git",
+      "state" : {
+        "revision" : "eb6edf701434c3a9d7460009298cf35575b96ed5",
+        "version" : "2.2.0"
+      }
+    }
+  ],
+  "version" : 2
+}
