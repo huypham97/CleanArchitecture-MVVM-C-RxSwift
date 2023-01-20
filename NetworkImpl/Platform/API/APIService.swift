@@ -21,7 +21,7 @@ let kRequestTimeOut: TimeInterval = 5
 
 struct NetworkManager {
     
-    static let manager: Session = {
+    static let session: Session = {
         let configuration: URLSessionConfiguration = {
             let config = URLSessionConfiguration.default
             config.timeoutIntervalForRequest = kRequestTimeOut
@@ -34,18 +34,18 @@ struct NetworkManager {
             let credential = OAuthCredential.init(accessToken: UserUtils.getAccessToken(), refreshToken: UserUtils.getRefreshToken(), expiration: UserUtils.getTimeTokenExpire() ?? Date())
             let authenticator = OAuthAuthenticator()
             let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
-            let manager = Session.init(configuration: configuration, serverTrustManager: nil)
-            return manager
+            let session = Session.init(configuration: configuration, interceptor: interceptor, serverTrustManager: nil)
+            return session
         }
         else {
-            let manager = Session(configuration: configuration, serverTrustManager: nil)
-            return manager
+            let session = Session(configuration: configuration, serverTrustManager: nil)
+            return session
         }
     }()
     
 }
 
-open class APIService {
+final class APIService {
     
     static let shared : APIService = {
         let instance = APIService()
@@ -54,10 +54,17 @@ open class APIService {
     
     private let bag = DisposeBag()
     
-    let manager = NetworkManager.manager
+    private let session = NetworkManager.session
     
-    func cancelRequestURL(url: URL) {
-        self.manager.request(url).cancel()
+    private let defaultSession = Session.default
+    
+    private func cancelRequestURL(url: URL, requireToken: Bool) {
+        if requireToken {
+            session.request(url).cancel()
+        }
+        else {
+            defaultSession.request(url).cancel()
+        }
     }
     
     func request<T: Mappable>(nonBaseResponse input: APIInputBase) -> Single<T> {
@@ -71,9 +78,9 @@ open class APIService {
         
         return Single.create { single in
             
-            let manager = input.requireToken ? self.manager.rx : Session.default.rx
+            let session = input.requireToken ? self.session.rx : self.defaultSession.rx
             
-            manager
+            session
                 .request(input.method,
                          input.url,
                          parameters: input.parameters,
@@ -111,7 +118,7 @@ open class APIService {
                 .disposed(by: self.bag)
             
             return Disposables.create {
-                self.cancelRequestURL(url: input.url)
+                self.cancelRequestURL(url: input.url, requireToken: input.requireToken)
             }
         }
     }
