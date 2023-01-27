@@ -12,8 +12,6 @@ import Foundation
 import RxSwift
 import BaseCore
 
-import RxCocoa
-
 protocol AuthenticateRepositoryType {
     func login(_ param: [String: Any]) -> Observable<UserModel>
 }
@@ -26,7 +24,7 @@ struct AuthenticateRepository: AuthenticateRepositoryType {
             .request(nonBaseResponse: AuthenticateAPIRouter.login(param))
             .asObservable()
             .observe(on: MainScheduler.asyncInstance)
-            .handleError1()
+            .handleError()
             .share()
     }
     

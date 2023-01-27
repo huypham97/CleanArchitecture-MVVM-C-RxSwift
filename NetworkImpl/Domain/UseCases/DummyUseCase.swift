@@ -10,6 +10,7 @@
 
 import Foundation
 import RxSwift
+import Factory
 
 protocol DummyUseCaseType {
     func getDummy() -> Observable<DummyModel>
@@ -17,11 +18,7 @@ protocol DummyUseCaseType {
 
 struct DummyUseCase: DummyUseCaseType {
     
-    private let repository: DummyRepository
-    
-    init(repository: DummyRepository) {
-        self.repository = repository
-    }
+    @Injected(Container.dummyRepo) private var repository: DummyRepository
 
     func getDummy() -> Observable<DummyModel> {
         return repository.getDummy()

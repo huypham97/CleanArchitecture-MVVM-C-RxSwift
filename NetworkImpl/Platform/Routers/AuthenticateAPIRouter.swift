@@ -16,7 +16,7 @@ enum AuthenticateAPIRouter: APIInputBase {
     var headers: HTTPHeaders? {
         if requireToken {
             var header = HTTPHeaders()
-            header.add(.authorization(UserUtils.getAccessToken()))
+            header.add(.authorization(UserUtils.accessToken))
             return header
         }
         else {

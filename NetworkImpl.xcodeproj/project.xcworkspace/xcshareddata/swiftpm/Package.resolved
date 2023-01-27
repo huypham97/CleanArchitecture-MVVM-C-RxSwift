@@ -15,7 +15,16 @@
       "location" : "https://gitlab.edupiakid.vn/huytd/base-core-ios",
       "state" : {
         "branch" : "master",
-        "revision" : "c1141bf3e55de9e8a25bb8616cfeaf32b3738215"
+        "revision" : "cd63570906637dffc13b2eb34397f65c707fb50d"
+      }
+    },
+    {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory.git",
+      "state" : {
+        "revision" : "11cb81d39129d25329b7e1e3209cd0aea9b352f0",
+        "version" : "1.3.5"
       }
     },
     {

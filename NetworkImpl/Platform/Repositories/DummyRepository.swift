@@ -13,18 +13,11 @@ import Foundation
 import RxSwift
 import BaseCore
 
-import SwiftMessages
-import RxCocoa
-
 protocol DummyRepositoryType {
     func getDummy() -> Observable<DummyModel>
 }
 
 struct DummyRepository: DummyRepositoryType {
-    
-    func makeDummyUseCase() -> DummyUseCase {
-        return DummyUseCase(repository: self)
-    }
 
     func getDummy() -> Observable<DummyModel> {
         return APIService
@@ -32,79 +25,8 @@ struct DummyRepository: DummyRepositoryType {
             .request(nonBaseResponse: DummyAPIRouter.apidemo)
             .asObservable()
             .observe(on: MainScheduler.asyncInstance)
-            .handleError1()
+            .handleError()
             .share()
     }
     
-}
-
-public extension Observable {
-
-    func handleError1(handler: (() -> ())? = nil) -> Observable<Element> {
-        return `catch` { error in
-//            ErrorTracker.catchError(error: error)
-            print(error.localizedDescription, "jhjjhhjjhjhjh")
-            SwiftMessages.show {
-                let view = MessageView.viewFromNib(layout: .messageView)
-                view.titleLabel?.text = "Error"
-                view.bodyLabel?.text = error.localizedDescription
-                return view
-            }
-            handler?()
-            return .empty()
-        }
-    }
-    
-    func catchErrorReturnSelf() -> Observable<Element> {
-        return `catch` { _ in
-            return self
-        }
-    }
-    
-    func catchErrorJustComplete() -> Observable<Element> {
-        return `catch` { _ in
-            return Observable.empty()
-        }
-    }
-
-    func asDriverOnErrorJustComplete() -> Driver<Element> {
-        return asDriver { error in
-            return Driver.empty()
-        }
-    }
-
-    func mapToVoid() -> Observable<Void> {
-        return map { _ in }
-    }
-}
-
-final class ErrorTracker: SharedSequenceConvertibleType {
-    typealias SharingStrategy = DriverSharingStrategy
-    private let _subject = PublishSubject<Error>()
-
-    func trackError<O: ObservableConvertibleType>(from source: O) -> Observable<O.Element> {
-        return source.asObservable().do(onError: onError)
-    }
-
-    func asSharedSequence() -> SharedSequence<SharingStrategy, Error> {
-        return _subject.asObservable().asDriverOnErrorJustComplete()
-    }
-
-    func asObservable() -> Observable<Error> {
-        return _subject.asObservable()
-    }
-
-    private func onError(_ error: Error) {
-        _subject.onNext(error)
-    }
-    
-    deinit {
-        _subject.onCompleted()
-    }
-}
-
-extension ObservableConvertibleType {
-    func trackError(_ errorTracker: ErrorTracker) -> Observable<Element> {
-        return errorTracker.trackError(from: self)
-    }
 }

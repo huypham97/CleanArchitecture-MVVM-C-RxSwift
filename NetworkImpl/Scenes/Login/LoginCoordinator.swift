@@ -29,8 +29,7 @@ class LoginCoordinator: NavigationCoordinator<LoginRoute> {
         switch route {
         case .login:
             let vc = LoginViewController()
-            let uc = DummyRepository().makeDummyUseCase()
-            let vm = LoginViewModel(router: unownedRouter, useCase: uc)
+            let vm = LoginViewModel(router: unownedRouter)
             vc.bind(to: vm)
             return .push(vc)
         case .home:

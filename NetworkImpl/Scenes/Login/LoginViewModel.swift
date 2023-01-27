@@ -14,6 +14,7 @@ import RxCocoa
 import XCoordinator
 import UIKit
 import BaseCore
+import Factory
 
 class LoginViewModel: EducaViewModel {
     
@@ -28,13 +29,12 @@ class LoginViewModel: EducaViewModel {
         let test: Driver<Void>
     }
     
-    private let useCase: DummyUseCase
+    @Injected(Container.dummyUseCase) private var useCase: DummyUseCase
     private let router: UnownedRouter<LoginRoute>
     private let bag = DisposeBag()
     
-    init(router: UnownedRouter<LoginRoute>, useCase: DummyUseCase) {
+    init(router: UnownedRouter<LoginRoute>) {
         self.router = router
-        self.useCase = useCase
     }
     
     func transform(input: Input) -> Output {

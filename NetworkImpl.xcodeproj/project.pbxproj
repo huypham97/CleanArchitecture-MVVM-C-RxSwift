@@ -23,6 +23,7 @@
 		C30B37252976DEED000D58B0 /* AuthenticateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B37242976DEED000D58B0 /* AuthenticateUseCase.swift */; };
 		C30B37292976E2DF000D58B0 /* AuthenticateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B37282976E2DF000D58B0 /* AuthenticateRepository.swift */; };
 		C30B372C2976E37B000D58B0 /* AuthenticateAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B372B2976E37B000D58B0 /* AuthenticateAPIRouter.swift */; };
+		C34724862984423F005B2696 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34724852984423F005B2696 /* AppDelegate+Injection.swift */; };
 		C373C9282976F87F001AB29B /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373C9232976F87F001AB29B /* HomeCoordinator.swift */; };
 		C373C9292976F87F001AB29B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373C9242976F87F001AB29B /* HomeViewController.swift */; };
 		C373C92B2976F87F001AB29B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373C9262976F87F001AB29B /* HomeViewModel.swift */; };
@@ -74,6 +75,7 @@
 		C30B37242976DEED000D58B0 /* AuthenticateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUseCase.swift; sourceTree = "<group>"; };
 		C30B37282976E2DF000D58B0 /* AuthenticateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateRepository.swift; sourceTree = "<group>"; };
 		C30B372B2976E37B000D58B0 /* AuthenticateAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateAPIRouter.swift; sourceTree = "<group>"; };
+		C34724852984423F005B2696 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		C373C9232976F87F001AB29B /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		C373C9242976F87F001AB29B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C373C9262976F87F001AB29B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				C30B36CA2976D630000D58B0 /* AppDelegate.swift */,
+				C34724852984423F005B2696 /* AppDelegate+Injection.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				C373C93F29780E1C001AB29B /* DummyModel.swift in Sources */,
 				C30B37252976DEED000D58B0 /* AuthenticateUseCase.swift in Sources */,
 				C30B37292976E2DF000D58B0 /* AuthenticateRepository.swift in Sources */,
+				C34724862984423F005B2696 /* AppDelegate+Injection.swift in Sources */,
 				C30B37032976D78F000D58B0 /* APIService.swift in Sources */,
 				C30B37042976D78F000D58B0 /* APIError.swift in Sources */,
 				C30B37052976D78F000D58B0 /* APIInputBase.swift in Sources */,

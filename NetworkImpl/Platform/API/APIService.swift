@@ -31,7 +31,7 @@ struct NetworkManager {
         }()
         
         if UserUtils.isLoggedIn() {
-            let credential = OAuthCredential.init(accessToken: UserUtils.getAccessToken(), refreshToken: UserUtils.getRefreshToken(), expiration: UserUtils.getTimeTokenExpire() ?? Date())
+            let credential = OAuthCredential.init(accessToken: UserUtils.accessToken, refreshToken: UserUtils.refreshToken, expiration: UserUtils.timeTokenWillExpire)
             let authenticator = OAuthAuthenticator()
             let interceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
             let session = Session.init(configuration: configuration, interceptor: interceptor, serverTrustManager: nil)
@@ -116,6 +116,37 @@ final class APIService {
 
                 })
                 .disposed(by: self.bag)
+            
+            return Disposables.create {
+                self.cancelRequestURL(url: input.url, requireToken: input.requireToken)
+            }
+        }
+    }
+    
+    func request<T: Mappable>(nonBaseNonReactive input: APIInputBase) -> Single<T> {
+        
+        print("\n------------REQUEST INPUT")
+        print("link:", input.url)
+        print("param:", input.parameters ?? "No parameters")
+        print("method:", input.method.rawValue)
+        print("header:", input.headers ?? "No headers")
+        print("------------ END REQUEST INPUT\n")
+        
+        return Single.create { single in
+            
+            let session = input.requireToken ? self.session : self.defaultSession
+            
+            session
+                .request(input.url,
+                         method: input.method,
+                         parameters: input.parameters,
+                         encoding: input.encoding,
+                         headers: input.headers)
+//                .subscribe(on: MainScheduler.asyncInstance)
+                .validate(statusCode: 200..<500)
+//                .observe(on: ConcurrentDispatchQueueScheduler.init(queue: .global(qos: .background)))
+                .response
+
             
             return Disposables.create {
                 self.cancelRequestURL(url: input.url, requireToken: input.requireToken)

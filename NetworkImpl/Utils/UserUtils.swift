@@ -9,6 +9,42 @@
 //  Template created by huyparody - huytd@educa.vn
 
 import Foundation
+import BaseCore
+
+
+/// Allows to match for optionals with generics that are defined as non-optional.
+public protocol AnyOptional {
+    /// Returns `true` if `nil`, otherwise `false`.
+    var isNil: Bool { get }
+}
+extension Optional: AnyOptional {
+    public var isNil: Bool { self == nil }
+}
+
+@propertyWrapper
+struct Storage<Value> {
+    let key: String
+    let defaultValue: Value
+    var container: UserDefaults = .standard
+
+    var wrappedValue: Value {
+        get {
+            return container.object(forKey: key) as? Value ?? defaultValue
+        }
+        set {
+            // Check whether we're dealing with an optional and remove the object if the new value is nil.
+            if let optional = newValue as? AnyOptional, optional.isNil {
+                container.removeObject(forKey: key)
+            } else {
+                container.set(newValue, forKey: key)
+            }
+        }
+    }
+
+    var projectedValue: Bool {
+        return true
+    }
+}
 
 public struct UserUtils {
     
@@ -19,6 +55,15 @@ public struct UserUtils {
         static let TimeTokenExpire = "timeTokenExpire"
     }
     
+    @Storage(key: UserUtils.UserDefaultKey.TokenLogin, defaultValue: "")
+    static var accessToken: String
+    
+    @Storage(key: UserUtils.UserDefaultKey.RefreshToken, defaultValue: "")
+    static var refreshToken: String
+    
+    @Storage(key: UserUtils.UserDefaultKey.TimeTokenExpire, defaultValue: Date().localDate())
+    static var timeTokenWillExpire: Date
+    
     //MARK: User tokens
     
     static func tokenWillExpiredAt() -> Date {
@@ -27,31 +72,13 @@ public struct UserUtils {
     }
     
     static func isLoggedIn () -> Bool {
-        if let token = UserDefaults.standard.string(forKey: UserUtils.UserDefaultKey.TokenLogin) {
-            return !token.isEmpty
-        }
-        return false
+        return !UserUtils.accessToken.isEmpty
     }
     
     static func saveTokens(accessToken: String, refreshToken: String) {
-        UserDefaults.standard.set(accessToken, forKey: UserUtils.UserDefaultKey.TokenLogin)
-        UserDefaults.standard.set(refreshToken, forKey: UserUtils.UserDefaultKey.RefreshToken)
-        UserDefaults.standard.set(UserUtils.tokenWillExpiredAt(), forKey: UserUtils.UserDefaultKey.TimeTokenExpire)
-    }
-    
-    static func getAccessToken() -> String {
-        return UserDefaults.standard.string(forKey: UserUtils.UserDefaultKey.TokenLogin) ?? ""
-    }
-    
-    static func getTimeTokenExpire() -> Date? {
-        if let time = UserDefaults.standard.object(forKey: UserUtils.UserDefaultKey.TimeTokenExpire) as? Date {
-            return time
-        }
-        return nil
-    }
-    
-    static func getRefreshToken() -> String {
-        return UserDefaults.standard.string(forKey: UserUtils.UserDefaultKey.RefreshToken) ?? ""
+        UserUtils.accessToken = accessToken
+        UserUtils.refreshToken = refreshToken
+        UserUtils.timeTokenWillExpire = UserUtils.tokenWillExpiredAt()
     }
     
     static func removeTokens() {
